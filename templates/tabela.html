@@ -1,27 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ponto Online</title>
-    <link rel="stylesheet" href="home.css">
-    <script defer src="script.js"></script>
+    <title>Registro de Funcionários</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="time-container">
-        <span id="current-time"></span>
-    </div>
     <div class="container">
-        <h1>Gerenciamento ponto dos funcionários</h1>
-        <form>
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="access-code">Código de Acesso (CPF):</label>
-            <input type="password" id="access-code" name="access-code" required>
-
-            <button type="submit">Bater Ponto!</button>
-        </form>
+        <h1>Registro de Funcionários</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Data</th>
+                    <th>Horário de Entrada</th>
+                    <th>Horário de Saída</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Exemplo de dados, estes serão substituídos pelos dados reais -->
+                <tr>
+                    <td>João Silva</td>
+                    <td>14/06/2024</td>
+                    <td>08:00</td>
+                    <td>17:00</td>
+                </tr>
+                <tr>
+                    <td>Maria Oliveira</td>
+                    <td>14/06/2024</td>
+                    <td>09:00</td>
+                    <td>18:00</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
