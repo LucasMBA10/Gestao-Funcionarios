@@ -1,20 +1,18 @@
-# views/employee_view.py
-
-from fastapi import APIRouter, HTTPException
-from models.employee import Employee
-from controllers.employee_controller import EmployeeController
+from fastapi import APIRouter, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+import httpx
 
 router = APIRouter()
-employee_controller = EmployeeController()
+templates = Jinja2Templates(directory="templates")
 
-@router.post("/employees/")
-async def create_employee(employee: Employee):
-    created_employee = employee_controller.create_employee(employee)
-    return created_employee
+@router.get("/", response_class=HTMLResponse)
+async def get_home(request: Request):
+    return templates.TemplateResponse("home.html", {"request": request})
 
-@router.get("/employees/{employee_id}")
-async def read_employee(employee_id: int):
-    employee = employee_controller.get_employee(employee_id)
-    if employee is None:
-        raise HTTPException(status_code=404, detail="Employee not found")
-    return employee
+@router.get("/registros", response_class=HTMLResponse)
+async def get_registros(request: Request):
+    async with httpx.AsyncClient() as client:
+        response = await client.get("http://localhost:8000/employee")
+        funcionarios = response.json()
+    return templates.TemplateResponse("registros.html", {"request": request, "funcionarios": funcionarios})

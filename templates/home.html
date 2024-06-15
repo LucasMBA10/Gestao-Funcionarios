@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ponto Online</title>
-    <link rel="stylesheet" href="home.css">
-    <script defer src="script.js"></script>
+    <title>Home</title>
+    <script>
+        async function addEmployee(event) {
+            event.preventDefault();
+            const id = document.getElementById("id").value;
+            const name = document.getElementById("name").value;
+            const position = document.getElementById("position").value;
+            const salary = document.getElementById("salary").value;
+
+            const response = await fetch('http://localhost:8000/employee', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id, name, position, salary })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+        }
+    </script>
 </head>
 <body>
-    <div class="time-container">
-        <span id="current-time"></span>
-    </div>
-    <div class="container">
-        <h1>Gerenciamento ponto dos funcionários</h1>
-        <form>
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="access-code">Código de Acesso (CPF):</label>
-            <input type="password" id="access-code" name="access-code" required>
-
-            <button type="submit">Bater Ponto!</button>
-        </form>
-    </div>
+    <h1>Welcome to the Employee Management System</h1>
+    <form onsubmit="addEmployee(event)">
+        <label for="id">ID:</label><br>
+        <input type="text" id="id" name="id"><br>
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="position">Position:</label><br>
+        <input type="text" id="position" name="position"><br>
+        <label for="salary">Salary:</label><br>
+        <input type="text" id="salary" name="salary"><br>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>

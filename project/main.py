@@ -1,21 +1,17 @@
 from fastapi import FastAPI
-from views import (
-    allocation_view,
-    department_view,
-    employee_view,
-    project_view,
-    salary_history_view
-)
+from fastapi.middleware.cors import CORSMiddleware
+from views.employee_view import router as employee_view_router
+from controllers.employee_controller import router as employee_controller_router
 
 app = FastAPI()
 
-# Registrando os roteadores das views
-app.include_router(allocation_view.router)
-app.include_router(department_view.router)
-app.include_router(employee_view.router)
-app.include_router(project_view.router)
-app.include_router(salary_history_view.router)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite todas as origens, mas você pode especificar as origens permitidas
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos os métodos
+    allow_headers=["*"],  # Permite todos os cabeçalhos
+)
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+app.include_router(employee_view_router)
+app.include_router(employee_controller_router)
