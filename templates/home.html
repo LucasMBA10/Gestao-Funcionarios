@@ -2,39 +2,36 @@
 <html>
 <head>
     <title>Home</title>
-    <script>
-        async function addEmployee(event) {
-            event.preventDefault();
-            const id = document.getElementById("id").value;
-            const name = document.getElementById("name").value;
-            const position = document.getElementById("position").value;
-            const salary = document.getElementById("salary").value;
+</head>
+<body>
+    <h1>Adicionar Funcionário</h1>
+    <form id="employeeForm">
+        <label for="id">ID:</label>
+        <input type="number" id="id" name="id" required><br>
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="position">Posição:</label>
+        <input type="text" id="position" name="position" required><br>
+        <label for="salary">Salário:</label>
+        <input type="number" id="salary" name="salary" required><br>
+        <button type="submit">Adicionar</button>
+    </form>
+    <a href="/registros">Ver Registros</a>
 
-            const response = await fetch('http://localhost:8000/employee', {
+    <script>
+        document.getElementById('employeeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            await fetch('http://localhost:8000/employee', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id, name, position, salary })
+                body: JSON.stringify(data)
             });
-
-            const result = await response.json();
-            alert(result.message);
-        }
+            e.target.reset();
+        });
     </script>
-</head>
-<body>
-    <h1>Welcome to the Employee Management System</h1>
-    <form onsubmit="addEmployee(event)">
-        <label for="id">ID:</label><br>
-        <input type="text" id="id" name="id"><br>
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name"><br>
-        <label for="position">Position:</label><br>
-        <input type="text" id="position" name="position"><br>
-        <label for="salary">Salary:</label><br>
-        <input type="text" id="salary" name="salary"><br>
-        <input type="submit" value="Submit">
-    </form>
 </body>
 </html>

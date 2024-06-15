@@ -1,17 +1,18 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from views.employee_view import router as employee_view_router
-from controllers.employee_controller import router as employee_controller_router
+from controllers import  employee_controller
+from views import employee_view
 
 app = FastAPI()
 
+# Permitir CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Permite todas as origens, mas você pode especificar as origens permitidas
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Permite todos os métodos
-    allow_headers=["*"],  # Permite todos os cabeçalhos
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-app.include_router(employee_view_router)
-app.include_router(employee_controller_router)
+app.include_router(employee_view.router)
+app.include_router(employee_controller.router)

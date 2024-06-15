@@ -21,21 +21,31 @@
 </head>
 <body>
     <h1>Lista de Funcionários</h1>
-    <table>
+    <table id="employeeTable">
         <tr>
             <th>ID</th>
             <th>Nome</th>
             <th>Posição</th>
             <th>Salário</th>
         </tr>
-        {% for funcionario in funcionarios %}
-        <tr>
-            <td>{{ funcionario.id }}</td>
-            <td>{{ funcionario.name }}</td>
-            <td>{{ funcionario.position }}</td>
-            <td>{{ funcionario.salary }}</td>
-        </tr>
-        {% endfor %}
     </table>
+    <a href="/">Voltar para Home</a>
+
+    <script>
+        async function loadEmployees() {
+            const response = await fetch('http://localhost:8000/employee');
+            const employees = await response.json();
+            const table = document.getElementById('employeeTable');
+            employees.forEach(employee => {
+                const row = table.insertRow();
+                row.insertCell(0).textContent = employee.id;
+                row.insertCell(1).textContent = employee.name;
+                row.insertCell(2).textContent = employee.position;
+                row.insertCell(3).textContent = employee.salary;
+            });
+        }
+
+        window.onload = loadEmployees;
+    </script>
 </body>
 </html>

@@ -12,7 +12,4 @@ async def get_home(request: Request):
 
 @router.get("/registros", response_class=HTMLResponse)
 async def get_registros(request: Request):
-    async with httpx.AsyncClient() as client:
-        response = await client.get("http://localhost:8000/employee")
-        funcionarios = response.json()
-    return templates.TemplateResponse("registros.html", {"request": request, "funcionarios": funcionarios})
+    return templates.TemplateResponse("registros.html", {"request": request})
