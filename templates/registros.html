@@ -49,6 +49,40 @@
         .btn-outline-primary {
             border-radius: 10px; /* Bordas arredondadas do botão */
         }
+        /* Estilos para os relógios */
+        .clocks {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: center;
+        }
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            border: 5px solid #0066cc;
+            border-radius: 50%;
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .hand {
+            width: 50%;
+            height: 2px;
+            background-color: #003366;
+            position: absolute;
+            top: 50%;
+            transform-origin: 100%;
+            transform: rotate(90deg);
+            transition: transform 0.5s ease-in-out;
+        }
+        .hour-hand {
+            width: 35%;
+        }
+        .minute-hand {
+            width: 45%;
+        }
+        .second-hand {
+            background-color: #ff0000; /* Vermelho para os segundos */
+        }
     </style>
 </head>
 <body>
@@ -78,6 +112,16 @@
             <a href="home.html" class="btn btn-outline-primary">Voltar para Home</a>
         </div>
     </div>
+    
+    <!-- Relógios -->
+    <div class="clocks">
+        <div class="analog-clock">
+            <div class="hand hour-hand" id="hourHand"></div>
+            <div class="hand minute-hand" id="minuteHand"></div>
+            <div class="hand second-hand" id="secondHand"></div>
+        </div>
+        <div id="digitalClock"></div>
+    </div>
 
     <script>
         async function loadEmployees() {
@@ -99,6 +143,43 @@
         }
 
         window.onload = loadEmployees;
+
+        // Atualizar relógio digital
+        function updateDigitalClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('digitalClock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Atualizar relógio analógico
+        function updateAnalogClock() {
+            const now = new Date();
+            const seconds = now.getSeconds();
+            const minutes = now.getMinutes();
+            const hours = now.getHours();
+            
+            const secondHand = document.getElementById('secondHand');
+            const minuteHand = document.getElementById('minuteHand');
+            const hourHand = document.getElementById('hourHand');
+            
+            const secondDegrees = ((seconds / 60) * 360) + 90;
+            const minuteDegrees = ((minutes / 60) * 360) + ((seconds/60)*6) + 90;
+            const hourDegrees = ((hours / 12) * 360) + ((minutes/60)*30) + 90;
+            
+            secondHand.style.transform = `rotate(${secondDegrees}deg)`;
+            minuteHand.style.transform = `rotate(${minuteDegrees}deg)`;
+            hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+        }
+
+        function updateClocks() {
+            updateDigitalClock();
+            updateAnalogClock();
+        }
+
+        setInterval(updateClocks, 1000);
+        updateClocks(); // Atualizar imediatamente ao carregar a página
     </script>
 </body>
 </html>
