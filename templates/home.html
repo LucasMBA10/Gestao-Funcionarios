@@ -1,22 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e6f7ff; /* Cor de fundo azul clara */
+        }
+        h1 {
+            color: #0066cc; /* Tons de azul */
+        }
+        form {
+            background-color: #f0f8ff; /* Fundo do formulário */
+            padding: 20px;
+            border-radius: 15px; /* Bordas arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+        }
+        label {
+            color: #003366; /* Cor dos textos dos rótulos */
+        }
+        .form-control {
+            border-radius: 10px; /* Bordas arredondadas dos campos */
+        }
+        .btn-primary {
+            background-color: #0066cc;
+            border-color: #0066cc;
+            border-radius: 10px; /* Bordas arredondadas do botão */
+        }
+        .circle {
+            width: 30px;
+            height: 30px;
+            background-color: #0066cc;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        a {
+            color: #0066cc; /* Cor do link */
+        }
+        .btn-outline-primary {
+            border-radius: 10px; /* Bordas arredondadas do botão */
+        }
+    </style>
 </head>
 <body>
-    <h1>Adicionar Funcionário</h1>
-    <form id="employeeForm">
-        <label for="id">ID:</label>
-        <input type="number" id="id" name="id" required><br>
-        <label for="name">Nome:</label>
-        <input type="text" id="name" name="name" required><br>
-        <label for="position">Posição:</label>
-        <input type="text" id="position" name="position" required><br>
-        <label for="salary">Salário:</label>
-        <input type="number" id="salary" name="salary" required><br>
-        <button type="submit">Adicionar</button>
-    </form>
-    <a href="/registros">Ver Registros</a>
+    <div class="container mt-5">
+        <div class="text-center">
+            <div class="circle"></div>
+            <h1>Adicionar Funcionário</h1>
+        </div>
+        <form id="employeeForm" class="mt-4">
+            <div class="form-group">
+                <label for="cpf">CPF:</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" required pattern="\d{11}" title="CPF deve ter 11 dígitos">
+            </div>
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="position">Posição:</label>
+                <input type="text" class="form-control" id="position" name="position" required>
+            </div>
+            <div class="form-group">
+                <label for="salary">Salário:</label>
+                <input type="number" class="form-control" id="salary" name="salary" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="registros.html" class="btn btn-outline-primary">Ver Registros</a>
+        </div>
+    </div>
 
     <script>
         document.getElementById('employeeForm').addEventListener('submit', async (e) => {

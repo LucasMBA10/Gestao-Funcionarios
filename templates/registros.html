@@ -1,47 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registros</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #e6f7ff; /* Cor de fundo azul clara */
+        }
+        h1 {
+            color: #0066cc; /* Tons de azul */
+        }
         table {
-            width: 100%;
-            border-collapse: collapse;
+            background-color: #f0f8ff; /* Fundo da tabela */
+            border-radius: 15px; /* Bordas arredondadas */
+            overflow: hidden; /* Para garantir que as bordas arredondadas funcionem */
+        }
+        th {
+            background-color: #cceeff; /* Tons de azul */
+            color: #003366; /* Cor do texto dos cabeçalhos */
+        }
+        td {
+            background-color: #e6f7ff; /* Tons de azul claro para as células */
         }
         table, th, td {
-            border: 1px solid black;
+            border: none; /* Remover bordas padrão */
         }
         th, td {
             padding: 15px;
             text-align: left;
         }
-        th {
-            background-color: #f2f2f2;
+        .table-responsive {
+            border-radius: 15px; /* Bordas arredondadas para o contêiner */
+            overflow: hidden;
+        }
+        .circle {
+            width: 30px;
+            height: 30px;
+            background-color: #0066cc;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        a {
+            color: #0066cc; /* Cor do link */
+        }
+        .btn-outline-primary {
+            border-radius: 10px; /* Bordas arredondadas do botão */
         }
     </style>
 </head>
 <body>
-    <h1>Lista de Funcionários</h1>
-    <table id="employeeTable">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Posição</th>
-            <th>Salário</th>
-        </tr>
-    </table>
-    <a href="/">Voltar para Home</a>
+    <div class="container mt-5">
+        <div class="text-center">
+            <div class="circle"></div>
+            <h1>Lista de Funcionários</h1>
+        </div>
+        <div class="table-responsive mt-4">
+            <table id="employeeTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>CPF</th>
+                        <th>Nome</th>
+                        <th>Posição</th>
+                        <th>Salário</th>
+                        <th>Data de Criação</th>
+                        <th>Última Atualização</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Os dados dos funcionários serão carregados aqui -->
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center mt-3">
+            <a href="home.html" class="btn btn-outline-primary">Voltar para Home</a>
+        </div>
+    </div>
 
     <script>
         async function loadEmployees() {
             const response = await fetch('http://localhost:8000/employee');
             const employees = await response.json();
-            const table = document.getElementById('employeeTable');
+            const tableBody = document.querySelector('#employeeTable tbody');
             employees.forEach(employee => {
-                const row = table.insertRow();
-                row.insertCell(0).textContent = employee.id;
-                row.insertCell(1).textContent = employee.name;
-                row.insertCell(2).textContent = employee.position;
-                row.insertCell(3).textContent = employee.salary;
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${employee.cpf}</td>
+                    <td>${employee.name}</td>
+                    <td>${employee.position}</td>
+                    <td>${employee.salary}</td>
+                    <td>${new Date(employee.created_at).toLocaleString()}</td>
+                    <td>${new Date(employee.updated_at).toLocaleString()}</td>
+                `;
+                tableBody.appendChild(row);
             });
         }
 
