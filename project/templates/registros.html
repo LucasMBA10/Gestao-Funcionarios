@@ -125,10 +125,11 @@
 
     <script>
         async function loadEmployees() {
-            const response = await fetch('http://localhost:8000/employee');
+            const response = await fetch('http://localhost:8000/employees'); // Corrigido para /employees
             const employees = await response.json();
             const tableBody = document.querySelector('#employeeTable tbody');
-            employees.forEach(employee => {
+            employees.forEach(item => {
+                const employee = item.employee;
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${employee.cpf}</td>

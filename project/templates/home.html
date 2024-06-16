@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Adicionar Funcionário</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -161,15 +161,33 @@
         document.getElementById('employeeForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-            await fetch('http://localhost:8000/employee', {
+            const data = {
+                cpf: formData.get('cpf'),
+                name: formData.get('name'),
+                position: formData.get('position'),
+                salary: formData.get('salary')
+            };
+
+            // Enviar a requisição POST para o backend
+            const response = await fetch('http://localhost:8000/employee', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
             });
+
+            // Verificar se a resposta foi bem-sucedida
+            if (!response.ok) {
+                console.error('Erro ao adicionar funcionário:', response.statusText);
+                return;
+            }
+
+            // Limpar o formulário após o envio bem-sucedido
             e.target.reset();
+
+            // Redirecionar para a página de registros (ou qualquer outra ação necessária)
+            window.location.href = 'registros.html';
         });
     </script>
 </body>
