@@ -1,6 +1,7 @@
+# main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from controllers.employee_controller import router as employee_router
+from views.employee_view import router as employee_views_router
 
 app = FastAPI()
 
@@ -14,7 +15,7 @@ app.add_middleware(
 )
 
 # Incluir os roteadores
-app.include_router(employee_router)
+app.include_router(employee_views_router)
 
 @app.get("/")
 async def read_root():
