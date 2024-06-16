@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo de Relação de Banco de Dados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .entity {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .relationship {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .relationship .line {
+            border-top: 2px solid #333;
+            width: 100%;
+            margin: auto;
+        }
+
+        .relationship .labels {
+            margin-top: 5px;
+        }
+
+        .relationship .labels div {
+            display: inline-block;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="entity">
+        <h3>Funcionário</h3>
+        <ul>
+            <li>id_funcionario</li>
+            <li>cpf</li>
+            <li>nome</li>
+            <li>salario</li>
+            <li>id_departamento</li>
+            <li>id_cargo</li>
+        </ul>
+    </div>
+
+    <div class="relationship">
+        <div class="line"></div>
+        <div class="labels">
+            <div>1</div>
+            <div>*</div>
+            <div>1</div>
+            <div>*</div>
+        </div>
+    </div>
+
+    <div class="entity">
+        <h3>Departamento</h3>
+        <ul>
+            <li>id_departamento</li>
+            <li>nome</li>
+        </ul>
+    </div>
+
+    <div class="relationship">
+        <div class="line"></div>
+    </div>
+
+    <div class="entity">
+        <h3>Cargo</h3>
+        <ul>
+            <li>id_cargo</li>
+            <li>nome</li>
+            <li>descricao</li>
+        </ul>
+    </div>
+</body>
+</html>

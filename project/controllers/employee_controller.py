@@ -1,12 +1,8 @@
-# controllers/employee_controller.py
+# employees_controller.py
+from fastapi import APIRouter
+from controllers.employee_controller import router as employee_router
 
-from models.employee import Employee
+router = APIRouter()
 
-class EmployeeController:
-    def create_employee(self, employee: Employee) -> Employee:
-        # Implementação para criar um novo funcionário
-        return employee
-
-    def get_employee(self, employee_id: int) -> Employee:
-        # Implementação para obter um funcionário pelo ID
-        return None  # Substitua por sua lógica de acesso a dados
+# Incluir os roteadores
+router.include_router(employee_router)
